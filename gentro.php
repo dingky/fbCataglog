@@ -1,12 +1,5 @@
 <?php
-include('adodb/adodb.inc.php');
-$conn = ADONewConnection("mysql"); 
-//$conn->debug=1;
-$server="localhost";
-$username="solution_21";
-$password="datacable21";
-$dbName ="solution_s21";
-$conn->PConnect($server, $username,$password, $dbName); 
+include('conn.php');
 $strSQL="select * from jos_vm_product where product_publish ='y' limit 0,9";
 $rs=$conn->Execute($strSQL);
 $path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/product/";
