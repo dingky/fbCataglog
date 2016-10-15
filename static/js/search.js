@@ -20,7 +20,7 @@ $(document).ready(function() {
                     $('.dropdown-content').hide();
                 });
             } else {
-                var data = search.val();
+                var data = $('<div/>').text(search.val()).html();
                 
                 if (data.length > 10) {
                     data = data.substr(0, 10) + '...';
