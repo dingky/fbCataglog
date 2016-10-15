@@ -114,7 +114,7 @@ $path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/produc
         
         <div class="bar-search-combo">
             <div class="bar-search-box">
-                <input class="bar-search-text-box" type="text" value=""></input>
+                <input placeholder="Search for products" class="bar-search-text-box" type="text" value=""></input>
                 <!-- add hidden class="bar-search-filter hidden"-->
                 <select id="filter-category" class="bar-search-filter">
 					 <?php 
@@ -150,19 +150,28 @@ $path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/produc
 	   $price  += "1.00";
 	?>
 	   <div class='prod-wrapp fl'>
-              <div class='pImg cl'><img id='img<?=$sku?>' src="<?=$img ?>"></div>
-              <div class='title cl'><strong>SKU:</strong><?=$sku?></div>
-              <div class='title cl'><strong id='product-<?=$sku?>'>  <?=$title ?></strong></div>
-              <div class='price cl'>
-                  <span id='price-<?=$sku?>' class="value"><?=number_format($price,2,'.',',') ?></span>&nbsp;PHP
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="number" id='qty-<?=$sku?>' max="50" min="1" value="1" class="cart-qty"></input>
-                  <a href="javascript:void(0)" onClick="javascript:addToCart('<?=$sku?>')" class="cart-add">Add-to-Cart</a>
-              </div>
-              <div class='action-btn cl'> 
-				  <a href="javascript: void(0);" class="pdp-pop"><span class="icon-new-tab"></span>&nbsp;View</a><span class="pipe"></span>
-				  <a href="#"><span class="icon-share2"></span>&nbsp;Share</a> </div>
-           </div> 
+            <div class='pImg cl'>
+                <a href="javascript: void(0);">
+                    <img class="pdp-pop" id='img<?=$sku?>' src="<?=$img ?>">
+                </a>
+            </div>
+            <div class='title cl'><strong>SKU:</strong><?=$sku?></div>
+            <div class='title cl'><strong>  <?=$title ?></strong></div>
+            <div class='price cl'>
+                <span class="value"><?=number_format($price,2,',','.') ?></span>&nbsp;PHP
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="number" id='qty-<?=$sku?>' max="50" min="1" value="1" class="cart-qty"></input>
+                <a href="javascript:void(0)" onClick="javascript:addToCart('<?=$sku?>')" class="cart-add">Add-to-Cart</a>
+            </div>
+            <div class='action-btn cl'> 
+                <a href="javascript: share();">
+                    <span class="icon-new-tab"></span>&nbsp;View </a><span class="pipe"></span>
+                </a>
+                <a href="javascript: share();">
+                    <span class="icon-share2"></span>&nbsp;Share
+                </a>
+            </div>
+        </div> 
          <?php
 	     $rs->moveNext();
     	  } ?>
