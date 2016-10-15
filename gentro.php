@@ -1,8 +1,12 @@
 <?php
 include('conn.php');
-$strSQL="select * from jos_vm_product where product_publish ='y' limit 0,9";
+include('func.php');
+$strSQL="select p.*,pref.category_id from jos_vm_product  as p left join jos_vm_product_category_xref` as pref 
+         on p.product_id = pref.product_id
+         where p.product_publish ='y' $filter limit 0,9";
 $rs=$conn->Execute($strSQL);
 $path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/product/";
+
 ?>
 
 
@@ -69,15 +73,14 @@ $path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/produc
    }
    var qty = $("#qty-"+sku).val();
    var price = $("#price-"+sku).text();
-   itm.push({"sku":sku,"qty":qty,"price":price});
+   var product = $.trim($("#product-"+sku).text());
+   itm.push({"sku":sku,"qty":qty,"price":price,"product":product});
    $.cookie("basket",JSON.stringify(itm));
    basket =  JSON.parse($.cookie("basket"));
    getShortBasket();
    successAlert("<b>" + sku + " </b>  was Added to your cart");
   }
-  
   function getShortBasket(){
-  
    if($.cookie("basket")){
        var totProd=0;totPrice=0;
        var basket = JSON.parse($.cookie("basket"));
@@ -91,7 +94,6 @@ $path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/produc
       $("#cart-info").html("");
    } 
   }
-getShortBasket();
 </script>
 <body>
     <div class="wrapper">
@@ -115,22 +117,18 @@ getShortBasket();
                 <input class="bar-search-text-box" type="text" value=""></input>
                 <!-- add hidden class="bar-search-filter hidden"-->
                 <select id="filter-category" class="bar-search-filter">
-                    <option>Select Category</option>
-                    <option>Audio</option>
-                    <option>Cables</option>
-                    <option>Computer Accessories</option>
+					 <?php 
+					  echo getCategory(0,$conn);
+					 ?>
+                    
                 </select>
-                <select id="filter-sub-category" class="bar-search-filter">
-                    <option>Select Sub-Category</option>
-                    <option>Speakers</option>
-                    <option>Earphone</option>
-                    <option>Headset</option>
-                </select>
+                
                 <select id="sort-by" class="bar-search-filter">
                     <option>Sort By</option>
-                    <option>Lowest to Highest Price</option>
-                    <option>Highest to Lowest Price</option>
-                    <option>Featured Products</option>
+                    <option value='lowprice'>Lowest to Highest Price</option>
+                    <option value='highprice'>Highest to Lowest Price</option>
+                    <option value='nameDesc'> Name Desc Z-A</option>
+                    <option value='nameAsc'> Name Asc A-Z</option>
                 </select>
                 <input class="bar-search-submit" type="submit" value="Search"></input>
             </div>
@@ -154,20 +152,16 @@ getShortBasket();
 	   <div class='prod-wrapp fl'>
               <div class='pImg cl'><img id='img<?=$sku?>' src="<?=$img ?>"></div>
               <div class='title cl'><strong>SKU:</strong><?=$sku?></div>
-              <div class='title cl'><strong>  <?=$title ?></strong></div>
+              <div class='title cl'><strong id='product-<?=$sku?>'>  <?=$title ?></strong></div>
               <div class='price cl'>
-                  <span class="value"><?=number_format($price,2,',','.') ?></span>&nbsp;PHP
+                  <span id='price-<?=$sku?>' class="value"><?=number_format($price,2,'.',',') ?></span>&nbsp;PHP
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="number" id='qty-<?=$sku?>' max="50" min="1" value="1" class="cart-qty"></input>
                   <a href="javascript:void(0)" onClick="javascript:addToCart('<?=$sku?>')" class="cart-add">Add-to-Cart</a>
-                  
-                  
-                   
               </div>
               <div class='action-btn cl'> 
-                  <a href="javascript: share()"> View </a><span class="pipe"></span>
-                  <a href="javascript: share()"> Share</a>
-              </div>
+				  <a href="javascript: void(0);" class="pdp-pop"><span class="icon-new-tab"></span>&nbsp;View</a><span class="pipe"></span>
+				  <a href="#"><span class="icon-share2"></span>&nbsp;Share</a> </div>
            </div> 
          <?php
 	     $rs->moveNext();
@@ -176,7 +170,6 @@ getShortBasket();
     </div>
     <script> getShortBasket(); </script>
     <br><br><br>
-
     <!-- PDP -->
     <div class="modal-container">
         <div class="modal">

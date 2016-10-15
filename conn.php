@@ -3,7 +3,7 @@
 
 include('adodb/adodb.inc.php');
 $conn = ADONewConnection("mysql"); 
-$conn->debug=1;
+$conn->debug=0;
 $server   ="localhost";
 $user   = "root";
 $pass   = "";
