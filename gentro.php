@@ -1,7 +1,7 @@
 <?php
 include('conn.php');
 include('func.php');
-$strSQL="select p.*,pref.category_id from jos_vm_product  as p left join jos_vm_product_category_xref` as pref 
+$strSQL="select p.*,pref.category_id from jos_vm_product  as p left join jos_vm_product_category_xref as pref 
          on p.product_id = pref.product_id
          where p.product_publish ='y' $filter limit 0,9";
 $rs=$conn->Execute($strSQL);
@@ -88,7 +88,6 @@ $path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/produc
          totPrice += parseInt(basket[prop].price);
          totProd += parseInt(basket[prop].qty);
        }
-       console.log( totPrice + ' ' +  totProd);
        $("#cart-info").html(totProd+ " Item, Total of Php "+totPrice.toFixed(2));
    } else {
       $("#cart-info").html("");
@@ -156,9 +155,9 @@ $path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/produc
                 </a>
             </div>
             <div class='title cl'><strong>SKU:</strong><?=$sku?></div>
-            <div class='title cl'><strong>  <?=$title ?></strong></div>
+            <div class='title cl'><strong  id='product-<?=$sku?>'>  <?=$title ?></strong></div>
             <div class='price cl'>
-                <span class="value"><?=number_format($price,2,',','.') ?></span>&nbsp;PHP
+                <span class="value" id='price-<?=$sku?>'><?=number_format($price,2,',','.') ?></span>&nbsp;PHP
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="number" id='qty-<?=$sku?>' max="50" min="1" value="1" class="cart-qty"></input>
                 <a href="javascript:void(0)" onClick="javascript:addToCart('<?=$sku?>')" class="cart-add">Add-to-Cart</a>
