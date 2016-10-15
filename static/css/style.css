@@ -72,19 +72,21 @@ img.logo {
 
 .bar-search-submit {
     margin: 4px;
-    font-weight: bolder;
-    border:  1px solid #dedede;
+    border:  3px solid #fff;
+    font-weight: bold;
+    color: #fff;
+    background-color: #365899;
     padding: 5px;
     font-size: 1rem;
 }
 
 .bar-search-submit:hover {
-    background: #BFC4C6;
-    color: #000;
+    background: #5c85d2;
+    color: #fff;
 }
 
 .bar-search-submit:active {
-    background: #1D2E69;
+    background: #264C96;
     color: #fff;
 }
 
