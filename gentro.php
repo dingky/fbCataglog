@@ -77,7 +77,8 @@ include('func.php');
   }
   function getShortBasket(){
    if($.cookie("basket")){
-       var totProd=0;totPrice=0;
+       var totProd=0;
+       var totPrice=0;
        var basket = JSON.parse($.cookie("basket"));
        for(var prop in basket){
          totPrice += parseInt(basket[prop].price);
@@ -137,7 +138,8 @@ include('func.php');
         <div id='product-list' >
         <?php
 	 while($rs->EOF===false){
-	   $sku   =  $rs->fields['product_sku'];
+	   $sku   =  str_replace('.','',$rs->fields['product_sku']);
+	   $rsku  =  $rs->fields['product_sku'];
 	   $title =  $rs->fields['product_name'];
 	   $sdesc =  $rs->fields['product_s_desc'];
 	   $img   =  $path .  $rs->fields['product_thumb_image'];
@@ -149,7 +151,7 @@ include('func.php');
                     <img class="pdp-pop" id='img<?=$sku?>' src="<?=$img ?>">
                 </a>
             </div>
-            <div class='title cl'><strong>SKU:</strong><?=$sku?></div>
+            <div class='title cl'><strong>SKU:</strong><?=$rsku?></div>
             <div class='title cl'><strong  id='product-<?=$sku?>'>  <?=$title ?></strong></div>
             <div class='price cl'>
                 <span class="value" id='price-<?=$sku?>'><?=number_format($price,2,',','.') ?></span>&nbsp;PHP

@@ -311,3 +311,9 @@ img.logo {
 .fr {
     float: right;
 }
+
+
+.error_pane label{
+  float:none;
+  
+}
