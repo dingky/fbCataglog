@@ -1,11 +1,6 @@
 <?php
 include('conn.php');
 include('func.php');
-$strSQL="select p.*,pref.category_id from jos_vm_product  as p left join jos_vm_product_category_xref as pref 
-         on p.product_id = pref.product_id
-         where p.product_publish ='y' $filter limit 0,9";
-$rs=$conn->Execute($strSQL);
-$path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/product/";
 
 ?>
 
@@ -113,31 +108,31 @@ $path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/produc
         
         <div class="bar-search-combo">
             <div class="bar-search-box">
+				<form method="POST">
                 <input placeholder="Search for products" class="bar-search-text-box" type="text" value=""></input>
                 <!-- add hidden class="bar-search-filter hidden"-->
-                <select id="filter-category" class="bar-search-filter">
+                <select  name='cat' id="filter-category" class="bar-search-filter">
+					 <option value=''> Category </option>
 					 <?php 
-					  echo getCategory(0,$conn);
+					  echo getCategory(0,$conn,$sid);
 					 ?>
                     
                 </select>
                 
-                <select id="sort-by" class="bar-search-filter">
-                    <option>Sort By</option>
-                    <option value='lowprice'>Lowest to Highest Price</option>
-                    <option value='highprice'>Highest to Lowest Price</option>
-                    <option value='nameDesc'> Name Desc Z-A</option>
-                    <option value='nameAsc'> Name Asc A-Z</option>
+                <select name='sort' id="sort-by" class="bar-search-filter">
+                    <option value=''>Sort By</option>
+                    <option <?php echo $sSort=='nameAsc' ? "selected":""?> value='nameAsc'> Name Asc A-Z</option>
+                    <option <?php echo $sSort=='nameDesc' ? "selected":""?> value='nameDesc'> Name Desc Z-A</option>
+                    <option <?php echo $sSort=='lowprice' ? "selected":""?> value='lowprice'>Lowest to Highest Price</option>
+                    <option <?php echo $sSort=='highprice' ? "selected":""?> value='highprice'>Highest to Lowest Price</option>
                 </select>
                 <input class="bar-search-submit" type="submit" value="Search"></input>
+                </form>
             </div>
             <div class="dropdown-content">
             </div>
         </div>
         <!-- end of search bar -->
-        
-         
-        
         
         <div id='product-list' >
         <?php
