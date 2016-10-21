@@ -1,5 +1,15 @@
 <?php
+ 
 include('conn.php');
+include('func.php');
+
+$sqlProvince = "select distinct province from provinces order by province asc";
+$selectedPro = "metro manila";
+$sqlCity = "select id,city,rate from provinces where province='".mysql_real_escape_string($selectedPro)."' order by city asc";
+
+$rsPro = $conn->Execute($sqlProvince); 
+$rsCity= $conn->Execute($sqlCity); 
+
 ?>
 
 
@@ -10,7 +20,6 @@ include('conn.php');
     <link rel='stylesheet' href='static/css/jAlert.css'>
     <link rel="stylesheet" href="static/css/modal.css" type="text/css">
     <link rel="stylesheet" href="static/css/icomoon.css" type="text/css">
-            
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
    
 </head>
@@ -100,8 +109,17 @@ include('conn.php');
 				 </tr>
 				 <tr>
 				   <th>province</th>
-				   <td> <select required> 
-					       <option value='metro manila' required title="Please Select Delivery Province " aria-required=true> metro manila</option>
+				   <td> <select required title="Please Select Delivery Province " aria-required=true> 
+					      
+					       <?php
+					         while(!$rsPro->EOF){
+								 $selected = strtolower($rsPro->fields['province'])== strtolower($selectedPro) ? "selected='true'":"";
+						   ?>
+						     <option <?=$selected?> value='<?=$rsPro->fields['province']?>'><?=$rsPro->fields['province']?></option>
+						   <?php
+							  $rsPro->moveNext(); 	 
+							 }
+					       ?>
 				        </select>
 				   </td>
 				 </tr>
@@ -109,7 +127,14 @@ include('conn.php');
 				   <th>City</th>
 				   <td>
 				       <select   required title="Please Select Delivery City" aria-required=true > 
-					       <option value='metro manila'>Caloocan</option>
+					       <?php
+					         while(!$rsCity->EOF){
+						   ?>
+						     <option value='<?=$rsCity->fields['city']?> alt="<?=$rsCity->fields['rate']?>">'><?=$rsCity->fields['city'] . " : " . $rsCity->fields['rate'] ?></option>
+						   <?php
+							  $rsCity->moveNext(); 	 
+							 }
+					       ?>
 				        </select>
 				   </td>
 				 </tr>
