@@ -196,11 +196,12 @@ img.logo {
 }
 
 .prod-wrapp {
-    border: 0;
     width: 264px;
-    padding: 2px;
+    border: 1px solid gray;
+    margin: 1px;
+    padding: 1px;
     background: #fff;
-    border: 1px solid lightgray;
+    border: 1px solid gray;
 }
 
 .pImg {
@@ -230,6 +231,15 @@ img.logo {
 
 .title {
     width: 254px;
+    height: 20px;
+    padding: 5px;
+    border-bottom: 1px dotted lightgray;
+    font-size: 13px;
+    text-align: center;
+    vertical-align: middle;
+}
+.sDesc {
+    width: 254px;
     height: 32px;
     padding: 5px;
     border-bottom: 1px dotted lightgray;
@@ -243,7 +253,8 @@ img.logo {
     width: 254px;
     padding: 5px;
     border-bottom: 1px dotted lightgray;
-    border-width: 1px
+    border-width: 1px;
+    min-height: 30px;
 }
 
 .price .cart-add {
@@ -277,6 +288,8 @@ img.logo {
     height: 28px;
     vertical-align: middle;
     text-decoration: none;
+    height: 31px;
+    margin-left:2px
 }
 
 .price .cart-add:hover, .price .cart-add:active {
@@ -300,6 +313,7 @@ img.logo {
     cursor: text;
     padding: 3px;
     text-align: center;
+    width:50px
 }
 
 .price .value {
@@ -343,6 +357,32 @@ img.logo {
 
 .fr {
     float: right;
+}
+
+/*checkout*/
+.ckBox{
+  border:1px solid gray;
+  background-color:white;
+  clear: both;
+  width:100%;
+}
+#product-list{
+ background-color:white;
+}
+
+#shipaddress {text-align:left}
+#shipaddress table{margin:0}
+#product-list h3 {
+  margin-top:10px;
+  font-weight:bold;
+  clear: both;
+}
+
+#payment{
+  padding:5px
+}
+#payment ul{
+  list-style:none;
 }
 
 

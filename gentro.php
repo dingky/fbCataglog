@@ -141,9 +141,9 @@ include('func.php');
 	   $sku   =  str_replace('.','',$rs->fields['product_sku']);
 	   $rsku  =  $rs->fields['product_sku'];
 	   $title =  $rs->fields['product_name'];
-	   $sdesc =  $rs->fields['product_s_desc'];
+	   $sdesc =  htmlspecialchars($rs->fields['product_s_desc']);
 	   $img   =  $path .  $rs->fields['product_thumb_image'];
-	   $price  += "1.00";
+	   $price  += "2500.00";
 	?>
 	   <div class='prod-wrapp fl'>
             <div class='pImg cl'>
@@ -152,13 +152,14 @@ include('func.php');
                 </a>
             </div>
             <div class='title cl'><strong>SKU:</strong><?=$rsku?></div>
-            <div class='title cl'><strong  id='product-<?=$sku?>'>  <?=$title ?></strong></div>
+            <div class='sDesc cl'><strong  id='product-<?=$sku?>'>  <?=$title ?></strong></div>
             <div class='price cl'>
-                <span class="value" id='price-<?=$sku?>'><?=number_format($price,2,',','.') ?></span>&nbsp;PHP
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="number" id='qty-<?=$sku?>' max="50" min="1" value="1" class="cart-qty"></input>
-                <a href="javascript:void(0)" onClick="javascript:addToCart('<?=$sku?>')" class="cart-add">Add-to-Cart</a>
+                <span class="value fl" id='price-<?=$sku?>'><?=number_format($price,2,'.',',') ?></span>&nbsp;PHP              
+                <a href="javascript:void(0)" onClick="javascript:addToCart('<?=$sku?>')" class="fr cart-add">Buy</a>
+                <input type="number" id='qty-<?=$sku?>' max="50" min="1" value="1" class="fr cart-qty"></input>
+                <span class=''>&nbsp;</span>
             </div>
+            <!--
             <div class='action-btn cl'> 
                 <a href="javascript: share();">
                     <span class="icon-new-tab"></span>&nbsp;View </a><span class="pipe"></span>
@@ -167,6 +168,7 @@ include('func.php');
                     <span class="icon-share2"></span>&nbsp;Share
                 </a>
             </div>
+            -->
         </div> 
          <?php
 	     $rs->moveNext();
