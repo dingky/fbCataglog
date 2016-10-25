@@ -61,8 +61,8 @@ include('func.php');
   
   function addToCart(sku){
   
-   if($.cookie("basket")){
-     var itm = JSON.parse($.cookie("basket"));;
+   if(JSON.parse($.cookie("basket"))!=null){
+     var itm = JSON.parse($.cookie("basket"));
    } else {
      var itm = [];
    }

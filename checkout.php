@@ -3,12 +3,18 @@
 include('conn.php');
 include('func.php');
 
+foreach($_POST as $k=>$v){
+	 $post[$k]=$v;
+}
+
 $sqlProvince = "select distinct province from provinces order by province asc";
-$selectedPro = "metro manila";
+$selectedPro = isset($post['selPro']) ?$post['selPro']:"metro manila";
 $sqlCity = "select id,city,rate from provinces where province='".mysql_real_escape_string($selectedPro)."' order by city asc";
 
 $rsPro = $conn->Execute($sqlProvince); 
-$rsCity= $conn->Execute($sqlCity); 
+$rsCity= $conn->Execute($sqlCity);
+$curRate=$rsCity->fields['rate'];
+ 
 
 ?>
 
@@ -96,6 +102,15 @@ $rsCity= $conn->Execute($sqlCity);
 				   <td><input name='txtfname' type='text' value=''> </td>
 				 </tr>
 				 <tr>
+				   <th>Middle name</th>
+				   <td>
+				      <select name='selGender' id='selGender' required title="Please Select Your Gender " aria-required=true> 
+						     <option   value='male'>Male</option>
+ 					         <option <  value='female'>Female</option>
+				        </select>
+				   </td>
+				 </tr>
+				 <tr>
 				   <th>Email</th>
 				   <td><input name='txtemail' type='text' value='' required title="Please Enter a valid email address"   email="true"> </td>
 				 </tr>
@@ -109,7 +124,7 @@ $rsCity= $conn->Execute($sqlCity);
 				 </tr>
 				 <tr>
 				   <th>province</th>
-				   <td> <select required title="Please Select Delivery Province " aria-required=true> 
+				   <td> <select name='selPro' id='selPro' required title="Please Select Delivery Province " aria-required=true> 
 					      
 					       <?php
 					         while(!$rsPro->EOF){
@@ -126,11 +141,12 @@ $rsCity= $conn->Execute($sqlCity);
 				 <tr>
 				   <th>City</th>
 				   <td>
-				       <select   required title="Please Select Delivery City" aria-required=true > 
+				       <select  id='selCity' name='selCity' required title="Please Select Delivery City" aria-required=true > 
 					       <?php
+					       
 					         while(!$rsCity->EOF){
 						   ?>
-						     <option value='<?=$rsCity->fields['city']?> alt="<?=$rsCity->fields['rate']?>">'><?=$rsCity->fields['city'] . " : " . $rsCity->fields['rate'] ?></option>
+						     <option value='<?=utf8_encode($rsCity->fields['city'])?>' alt='<?=$rsCity->fields['rate']?>' ><?=utf8_encode($rsCity->fields['city']) . " : " . $rsCity->fields['rate'] ?></option>
 						   <?php
 							  $rsCity->moveNext(); 	 
 							 }
@@ -168,7 +184,7 @@ $rsCity= $conn->Execute($sqlCity);
 			    <li>Quality evaluation and qualification for Return/Exchange will be for 48 hours.</li>
 			    <li>if Found Defective within 90 days, customer must shoulder the return shipping fee and we will replace your item for a brand new one.</li>
             </ol>
-            <i> I Agree to Term and Consition <input name='chkagree' type='checkbox'></i> <input name='chkagree' value='Confirm Order' type='submit'>
+            <i> I Agree to Term and Consition <input name='chkagree' id='agree' title="Please accept out Policy" type='checkbox'  required></i> <input   value='Confirm Order' type='submit'>
           </div>
           <div class='ckBox'></div>
           
@@ -209,6 +225,8 @@ $rsCity= $conn->Execute($sqlCity);
          product = basket[prop].product;
          total += parseFloat (price * qty);
          amt = price * qty;
+         Total = parseFloat('<?=$curRate?>') + parseFloat(amt);
+         Total = Total.toFixed(2);
          
          tblBasket += "<tr>";
          tblBasket += "<td bgcolor='white'>"+sku+"</td>";
@@ -217,21 +235,21 @@ $rsCity= $conn->Execute($sqlCity);
          tblBasket += "<td bgcolor='white' align='right'>"+price.toFixed(2)+"</td>";
          tblBasket += "<td bgcolor='white' align='right'>"+amt.toFixed(2)+"</td>";
          tblBasket += "</tr>";
-         
-          
        }
+       $.cookie("total",amt); 
+       $.cookie("shipping",parseFloat('<?=$curRate?>').toFixed(2));
         tblBasket += "<tr>";
         tblBasket += "<td bgcolor='white' colspan='4' align='right'> Sub Total </td>";
         tblBasket += "<td bgcolor='white'>"+total.toFixed(2)+"</td>";
         tblBasket += "</tr>"
         tblBasket += "<tr>";
         tblBasket += "<td bgcolor='white' colspan='4' align='right'> Shipping Fee </td>";
-        tblBasket += "<td bgcolor='white' id='shipmentPane'> </td>";
+        tblBasket += "<td bgcolor='white' id='shipmentPane'> <?php echo  number_format($curRate,2,'.',',') ?></td>";
         tblBasket += "</tr>"
         
         tblBasket += "<tr>";
         tblBasket += "<td bgcolor='white' colspan='4' align='right'> Total </td>";
-        tblBasket += "<td bgcolor='white' id='totalPane'> </td>";
+        tblBasket += "<td bgcolor='white' id='totalPane'>"+Total+" </td>";
         tblBasket += "</tr>"
        
        tblBasket += "</table>";
@@ -242,7 +260,6 @@ $rsCity= $conn->Execute($sqlCity);
    }
    
    function remove(i){
-	  
 	  var basket = JSON.parse($.cookie("basket"));
 	  basket.splice(i, 1);
 	  $.cookie("basket",JSON.stringify(basket));
@@ -256,12 +273,40 @@ $rsCity= $conn->Execute($sqlCity);
 	  $.cookie("basket",JSON.stringify(basket));	
 	  console.log(JSON.stringify(basket));
 	}  
-	 $(".qtyBox").click(function(i){
-		//  var basket = JSON.parse($.cookie("basket"));
-	  
-	//  console.log( basket[$(this).attr("alt")]);
+	
+	$(".qtyBox").click(function(i){
 		update($(this).attr("alt")) ;
-	  }); 
-  </script>   
+	 });
+	 
+	$('#selCity').change(function(){
+		 
+		 
+		var shipping = parseFloat($('#selCity option:selected').attr('alt'));
+		var total = parseFloat($('#totalPane').html());
+		total = parseFloat(total) + parseFloat(shipping);
+		$('#totalPane').html(total.toFixed(2));
+		$('#shipmentPane').html(shipping.toFixed(2));
+		 $.cookie("total",total.toFixed(2)); 
+       $.cookie("shipping",shipping.toFixed(2));
+		
+	});
+	$('#selPro').change(function(){
+		   $.ajax({
+			      url:  'ajax.php?pro='+$(this).val(),
+			      method:'get',
+			      dataType:'json' 
+			}).done(function( data ) {
+				  $("#selCity option").each(function(){
+					 $(this).remove();  
+				  });
+				  var o="";
+				  for(var prop in data){
+					 console.log(data[prop]);
+				     o +="<Option value='"+data[prop].city +"'>"+ data[prop].city +" ("+data[prop].rate+")</option>";
+				  }
+			      $("#selCity").html(o);
+			});
+	});
   
+  </script>
 </body>

@@ -377,6 +377,9 @@ img.logo {
   font-weight:bold;
   clear: both;
 }
+#basketList .qtyBox{
+ width:30px
+}
 
 #payment{
   padding:5px
