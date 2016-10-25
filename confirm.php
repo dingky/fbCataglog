@@ -66,9 +66,9 @@ if($basket){
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.cookie.js"></script>
     <script>
-    // $.cookie('basket', null);
-    // $.cookie('shipping', null);
-    // $.cookie('total', null);
+      $.cookie('basket', null);
+      $.cookie('shipping', null);
+      $.cookie('total', null);
     </script>
 Thank for your Order<br>
 Your Order id: <?=$rsO->fields['lastId']?>
