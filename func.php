@@ -2,13 +2,14 @@
 $orderBy = "p.product_name asc";
 $cid ="";
 $sSort ="";
+$page  = 9;
 if(isset($_POST['cat']) and isset($_POST['sort'])){
 	if(!empty($_POST['cat'])) {
 	   $cid     = $sid = mysql_real_escape_string($_POST['cat']);
 	   $filter  = " and pref.category_id =$cid";
     }
     if(!empty($_POST['sort'])) {
-		 $sSort = mysql_real_escape_string($_POST['sort']);
+		$sSort = mysql_real_escape_string($_POST['sort']);
 		if($_POST[sort]=='nameAsc'){
 			$orderBy = " p.product_name asc";
 		}else if($_POST[sort]=='nameDesc'){
@@ -24,9 +25,14 @@ if(isset($_POST['cat']) and isset($_POST['sort'])){
 }
 $strSQL="select p.*,pref.category_id from jos_vm_product  as p left join jos_vm_product_category_xref as pref 
          on p.product_id = pref.product_id
-         where p.product_publish ='y' $filter order by $orderBy limit 0,9";
+         where p.product_publish ='y' $filter order by $orderBy limit 0,$page";
 $rs=$conn->Execute($strSQL);
-$path = "http://www.solutionsh21.com/components/com_virtuemart/shop_image/product/";
+
+$strSQL="select count(p.product_id) as rec from jos_vm_product  as p left join jos_vm_product_category_xref as pref 
+         on p.product_id = pref.product_id
+         where p.product_publish ='y' $filter order by $orderBy limit 0,$page";
+$rsTotal=$conn->Execute($strSQL);
+
 
 
 function getCategory($categID,$conn,$sid,$categories=""){

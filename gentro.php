@@ -1,10 +1,7 @@
 <?php
 include('conn.php');
 include('func.php');
-
 ?>
-
-
 <!DOCTYPE html>
 <head>
     <title>Gentronics</Title>
@@ -39,7 +36,7 @@ include('func.php');
       xfbml      : true,
       version    : 'v2.8'
     });
-
+    FB.Canvas.setSize({ width:825, height:1600});
      FB.getLoginStatus(function(response) {
         // console.log(response.status);
         if (!response.status === 'connected') {
@@ -61,11 +58,12 @@ include('func.php');
   
   function addToCart(sku){
   
-   if(JSON.parse($.cookie("basket"))!=null){
+   if($.cookie("basket") && $.cookie("basket")!='' && 'null'!=$.cookie("basket")){
      var itm = JSON.parse($.cookie("basket"));
    } else {
      var itm = [];
    }
+      
    var qty = $("#qty-"+sku).val();
    var price = $("#price-"+sku).text();
    var product = $.trim($("#product-"+sku).text());
@@ -93,57 +91,69 @@ include('func.php');
 <body>
     <div class="wrapper">
     <!-- Header -->
-        <div class="bar-header">
-            <div>
-                <img class="logo" src="static/img/gentronics.png"></img>
-            </div>
-            <div class="bar-cart">
-                <!-- <a href="#Cart" class="cart-full"> -->
-                <a href="#Cart">
-                    <span id="cart-info"> <!--short basket dtls here --></span><span class="icon-cart"></span>
-                </a>
-            </div>
-        </div>
-        <!-- end of Header -->
+        
         <!-- Search bar -->
         
         <div class="bar-search-combo">
             <div class="bar-search-box">
-				<form method="POST">
+				<form id='search' method="POST">
                 <input placeholder="Search for products" class="bar-search-text-box" type="text" value=""></input>
                 <!-- add hidden class="bar-search-filter hidden"-->
-                <select  name='cat' id="filter-category" class="bar-search-filter">
+                <select  onchange="$('#search').submit()"  name='cat' id="filter-category" class="bar-search-filter">
 					 <option value=''> Category </option>
 					 <?php 
 					  echo getCategory(0,$conn,$sid);
 					 ?>
-                    
                 </select>
                 
-                <select name='sort' id="sort-by" class="bar-search-filter">
+                <select name='sort'  id="sort-by" onchange="$('#search').submit()"  class="bar-search-filter">
                     <option value=''>Sort By</option>
                     <option <?php echo $sSort=='nameAsc' ? "selected":""?> value='nameAsc'> Name Asc A-Z</option>
                     <option <?php echo $sSort=='nameDesc' ? "selected":""?> value='nameDesc'> Name Desc Z-A</option>
                     <option <?php echo $sSort=='lowprice' ? "selected":""?> value='lowprice'>Lowest to Highest Price</option>
                     <option <?php echo $sSort=='highprice' ? "selected":""?> value='highprice'>Highest to Lowest Price</option>
                 </select>
-                <input class="bar-search-submit" type="submit" value="Search"></input>
+                <select name='selpage' onchange="$('#search').submit()" id="selpage" class="bar-search-filter">
+                     <?php
+                      $totolRecord = $rsTotal->fields['rec'];
+                      for($i=0;$i<=$totolRecord;$i+=9){
+						   $ii = floor(($i+9)/9);
+						   echo " <option value=''> Page {$ii}</option>";
+						  }
+                     ?>
+                </select>
+               
                 </form>
             </div>
             <div class="dropdown-content">
             </div>
         </div>
         <!-- end of search bar -->
-        
+        <div>
+            <div class='fl'>
+                filters: 
+                 
+            </div>
+            <div class="bar-cart fr">
+                <!-- <a href="#Cart" class="cart-full"> -->
+                <a href="#Cart">
+                    <span id="cart-info"> <!--short basket dtls here --></span>
+                    <span class="icon-cart">View basket</span>
+                </a>
+            </div>
+            <div class='cl'>&nbsp;</div>
+        </div>
+        <!-- end of Header -->
         <div id='product-list' >
         <?php
+     $path = "http://solutionsh21.com/gentro/images/";
 	 while($rs->EOF===false){
 	   $sku   =  str_replace('.','',$rs->fields['product_sku']);
 	   $rsku  =  $rs->fields['product_sku'];
-	   $title =  $rs->fields['product_name'];
+	   $title =  utf8_encode($rs->fields['product_name']);
 	   $sdesc =  htmlspecialchars($rs->fields['product_s_desc']);
-	   $img   =  $path .  $rs->fields['product_thumb_image'];
-	   $price  += "2500.00";
+	   $img   =  $path .  $rs->fields['product_full_image'];
+	   $price = $rs->fields['price'];;
 	?>
 	   <div class='prod-wrapp fl'>
             <div class='pImg cl'>
@@ -173,6 +183,8 @@ include('func.php');
          <?php
 	     $rs->moveNext();
     	  } ?>
+        </div>
+        <div> 3 | 2
         </div>
     </div>
     <script> getShortBasket(); </script>

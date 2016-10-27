@@ -91,16 +91,17 @@ img.logo {
 }
 
 /* Cart Icon */
-.bar-cart {
-    float: right;
-}
+ 
 
 .bar-cart a {
     color: #34363C;
-    font-size: 34px;
+    font-size:  17px;
     text-decoration: none;
 }
 
+.bar-cart #cart-info {
+ color:red
+}
 .bar-cart a.cart-full {
     color: #1C3393;
 }
