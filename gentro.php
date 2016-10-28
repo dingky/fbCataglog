@@ -71,7 +71,7 @@ include('func.php');
    $.cookie("basket",JSON.stringify(itm));
    basket =  JSON.parse($.cookie("basket"));
    getShortBasket();
-   successAlert("<b>" + sku + " </b>  was Added to your cart");
+   infoAlert("Success", "<b>" + sku + " </b>  was Added to your cart");
   }
   function getShortBasket(){
    if($.cookie("basket")){
