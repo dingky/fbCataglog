@@ -1,93 +1,58 @@
 <?php
+
 include('./includes/conn.php');
 include('./includes/func.php');
+
 ?>
+
 <!DOCTYPE html>
+
 <head>
     <title>Gentronics</Title>
+    <!-- START: CSS -->
     <link rel="stylesheet" href="static/css/style.css" type="text/css">
     <link rel='stylesheet' href='static/css/jAlert.css'>
     <link rel="stylesheet" href="static/css/modal.css" type="text/css">
     <link rel="stylesheet" href="static/css/icomoon.css" type="text/css">
-            
+    <!-- END: CSS -->
+
+    <!-- START: JS -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.cookie.js"></script>
     <script type="text/javascript" src="static/js/search.js"></script>
-
     <script src='static/js/jAlert.js'></script>
     <script src='static/js/jAlert-functions.js'></script>
+    <script type="text/javascript">
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     
+    
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1074711305977720',
+                xfbml      : true,
+                version    : 'v2.8'
+            });
+
+            FB.Canvas.setSize({ width:825, height:1600});
+                FB.getLoginStatus(function(response) {
+                // console.log(response.status);
+                if (!response.status === 'connected') {
+                    //FB.login(function(){}, {scope: 'publish_actions'});
+                // console.log('login redirect');
+                }
+                }); 
+            };
+    </script>
+    <script type="text/javascript" src="static/js/internal.js"></script>
+    <!-- END: JS -->
 </head>
 
-<script>
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-   
-   
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1074711305977720',
-      xfbml      : true,
-      version    : 'v2.8'
-    });
-    FB.Canvas.setSize({ width:825, height:1600});
-     FB.getLoginStatus(function(response) {
-        // console.log(response.status);
-        if (!response.status === 'connected') {
-         //FB.login(function(){}, {scope: 'publish_actions'});
-        // console.log('login redirect');
-        }
-      }); 
-  };
-  
-  function msgUs(sku){
-    FB.ui({
-          method: 'send',
-	  display: 'page',
-	  to :'167758130339013',
-	  message:'Test' + $("#img"+sku).attr('src'),
-	  link: $("#img"+sku).attr('src')
-	  });
-  }
-  
-  function addToCart(sku){
-  
-   if($.cookie("basket") && $.cookie("basket")!='' && 'null'!=$.cookie("basket")){
-     var itm = JSON.parse($.cookie("basket"));
-   } else {
-     var itm = [];
-   }
-      
-   var qty = $("#qty-"+sku).val();
-   var price = $("#price-"+sku).text();
-   var product = $.trim($("#product-"+sku).text());
-   itm.push({"sku":sku,"qty":qty,"price":price,"product":product});
-   $.cookie("basket",JSON.stringify(itm));
-   basket =  JSON.parse($.cookie("basket"));
-   getShortBasket();
-   infoAlert("Success", "<b>" + sku + " </b>  was Added to your cart");
-  }
-  function getShortBasket(){
-   if($.cookie("basket")){
-       var totProd=0;
-       var totPrice=0;
-       var basket = JSON.parse($.cookie("basket"));
-       for(var prop in basket){
-         totPrice += parseInt(basket[prop].price);
-         totProd += parseInt(basket[prop].qty);
-       }
-       $("#cart-info").html(totProd+ " Item, Total of Php "+totPrice.toFixed(2));
-   } else {
-      $("#cart-info").html("");
-   } 
-  }
-</script>
 <body>
     <div class="wrapper">
     <!-- Header -->
