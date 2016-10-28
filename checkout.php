@@ -1,7 +1,7 @@
 <?php
  
-include('conn.php');
-include('func.php');
+include('./includes/conn.php');
+include('./includes/func.php');
 
 foreach($_POST as $k=>$v){
 	 $post[$k]=$v;

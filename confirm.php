@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('conn.php');
+include('./includes/conn.php');
 foreach($_REQUEST as $k=>$v){
 	 $request[$k]=mysql_real_escape_string($v);
 }

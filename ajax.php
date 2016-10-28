@@ -1,5 +1,6 @@
 <?php
-include('conn.php');
+
+include('./includes/conn.php');
 
 $selectedPro = mysql_real_escape_string($_GET['pro']);
 

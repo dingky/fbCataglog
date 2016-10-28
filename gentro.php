@@ -1,6 +1,6 @@
 <?php
-include('conn.php');
-include('func.php');
+include('./includes/conn.php');
+include('./includes/func.php');
 ?>
 <!DOCTYPE html>
 <head>
