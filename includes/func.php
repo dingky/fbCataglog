@@ -7,7 +7,7 @@ $txtSearch = "";
 $filter="";
 if(isset($_POST['cat']) and isset($_POST['sort'])){
 	if(!empty($_POST['txtSearch'])) {
-		echo $txtSearch = mysql_real_escape_string($_POST['txtSearch']);
+		$txtSearch = mysql_real_escape_string($_POST['txtSearch']);
 		$filter .= " and (p.product_sku like '%$txtSearch%' or p.product_name like '%$txtSearch%' )";
 	}
 	if(!empty($_POST['cat'])) {
