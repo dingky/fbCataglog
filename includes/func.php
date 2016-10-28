@@ -2,11 +2,17 @@
 $orderBy = "p.product_name asc";
 $cid ="";
 $sSort ="";
-$page  = 9;
+$spage  = 9;
+$txtSearch = "";
+$filter="";
 if(isset($_POST['cat']) and isset($_POST['sort'])){
+	if(!empty($_POST['txtSearch'])) {
+		echo $txtSearch = mysql_real_escape_string($_POST['txtSearch']);
+		$filter .= " and (p.product_sku like '%$txtSearch%' or p.product_name like '%$txtSearch%' )";
+	}
 	if(!empty($_POST['cat'])) {
 	   $cid     = $sid = mysql_real_escape_string($_POST['cat']);
-	   $filter  = " and pref.category_id =$cid";
+	   $filter  .= " and pref.category_id =$cid";
     }
     if(!empty($_POST['sort'])) {
 		$sSort = mysql_real_escape_string($_POST['sort']);
@@ -20,17 +26,16 @@ if(isset($_POST['cat']) and isset($_POST['sort'])){
 			$orderBy = " p.price asc";
 		}
     }
-}else{
-  $filter="";	
-}
+    $spage    = $_POST['selpage']=='' ? 9: mysql_real_escape_string($_POST['selpage']);
+} 
 $strSQL="select p.*,pref.category_id from jos_vm_product  as p left join jos_vm_product_category_xref as pref 
          on p.product_id = pref.product_id
-         where p.product_publish ='y' $filter order by $orderBy limit 0,$page";
+         where p.product_publish ='y' $filter order by $orderBy limit 0,$spage";
 $rs=$conn->Execute($strSQL);
 
 $strSQL="select count(p.product_id) as rec from jos_vm_product  as p left join jos_vm_product_category_xref as pref 
          on p.product_id = pref.product_id
-         where p.product_publish ='y' $filter order by $orderBy limit 0,$page";
+         where p.product_publish ='y' $filter";
 $rsTotal=$conn->Execute($strSQL);
 
 

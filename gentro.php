@@ -56,13 +56,11 @@ include('./includes/func.php');
 <body>
     <div class="wrapper">
     <!-- Header -->
-        
         <!-- Search bar -->
-        
         <div class="bar-search-combo">
             <div class="bar-search-box">
 				<form id='search' method="POST">
-                <input placeholder="Search for products" class="bar-search-text-box" type="text" value=""></input>
+                <input placeholder="Search for products" name='txtSearch' value="<?=$txtSearch?>" class="bar-search-text-box" type="text" value=""></input>
                 <!-- add hidden class="bar-search-filter hidden"-->
                 <select  onchange="$('#search').submit()"  name='cat' id="filter-category" class="bar-search-filter">
 					 <option value=''> Category </option>
@@ -78,12 +76,13 @@ include('./includes/func.php');
                     <option <?php echo $sSort=='lowprice' ? "selected":""?> value='lowprice'>Lowest to Highest Price</option>
                     <option <?php echo $sSort=='highprice' ? "selected":""?> value='highprice'>Highest to Lowest Price</option>
                 </select>
-                <select name='selpage' onchange="$('#search').submit()" id="selpage" class="bar-search-filter">
+                <select style='width:120px!important' name='selpage' onchange="$('#search').submit()" id="selpage" class="bar-search-filter">
                      <?php
-                      $totolRecord = $rsTotal->fields['rec'];
-                      for($i=0;$i<=$totolRecord;$i+=9){
-						   $ii = floor(($i+9)/9);
-						   echo " <option value=''> Page {$ii}</option>";
+                       $totolRecord = $rsTotal->fields['rec'];
+                      for($i=9;$i<=$totolRecord ;$i+=9){
+						   $ii = floor($i/9);
+						   $s = $spage ==$i ? "selected":"";
+						   echo " <option $s value='$i'> Page {$ii} </option>";
 						  }
                      ?>
                 </select>
@@ -94,32 +93,33 @@ include('./includes/func.php');
             </div>
         </div>
         <!-- end of search bar -->
-        <div>
+        <div class='short-basket'>
             <div class='fl'>
-                filters: 
-                 
+                Banner here 
             </div>
             <div class="bar-cart fr">
                 <!-- <a href="#Cart" class="cart-full"> -->
-                <a href="#Cart">
+                <span class='basket-dtl'>
+                    <span class="icon-cart"></span>
                     <span id="cart-info"> <!--short basket dtls here --></span>
-                    <span class="icon-cart">View basket</span>
-                </a>
+                    <span class="icon-cart2" style="cursor:pointer">View basket</span>
+                    
+                </span>
             </div>
             <div class='cl'>&nbsp;</div>
         </div>
         <!-- end of Header -->
         <div id='product-list' >
         <?php
-     $path = "http://solutionsh21.com/gentro/images/";
-	 while($rs->EOF===false){
-	   $sku   =  str_replace('.','',$rs->fields['product_sku']);
-	   $rsku  =  $rs->fields['product_sku'];
-	   $title =  utf8_encode($rs->fields['product_name']);
-	   $sdesc =  htmlspecialchars($rs->fields['product_s_desc']);
-	   $img   =  $path .  $rs->fields['product_full_image'];
-	   $price = $rs->fields['price'];;
-	?>
+		  $path = "http://solutionsh21.com/gentro/images/";
+		  while($rs->EOF===false){
+		    $sku   =  str_replace('.','',$rs->fields['product_sku']);
+		    $rsku  =  $rs->fields['product_sku'];
+		    $title =  utf8_encode($rs->fields['product_name']);
+		    $sdesc =  htmlspecialchars($rs->fields['product_s_desc']);
+		    $img   =  $path .  $rs->fields['product_full_image'];
+		    $price =  $rs->fields['price'];;
+		?>
 	   <div class='prod-wrapp fl'>
             <div class='pImg cl'>
                 <a href="javascript: void(0);">
@@ -148,8 +148,6 @@ include('./includes/func.php');
          <?php
 	     $rs->moveNext();
     	  } ?>
-        </div>
-        <div> 3 | 2
         </div>
     </div>
     <script> getShortBasket(); </script>
