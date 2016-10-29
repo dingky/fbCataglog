@@ -45,8 +45,9 @@ img.logo {
 }
 
 .banner_top {
-    background-image: url(../img/banner_top.png);
-    width: 512px;
+    background: url(../img/banner_top.png);
+    background-size: 416px 64px;
+    width: 416px;
     height: 64px;;
 } 
 
