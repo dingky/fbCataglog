@@ -7,7 +7,7 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
-    background: #e7e7e7;
+    background: #ffffff;
 }
 
 .wrapper {
@@ -215,15 +215,15 @@ img.logo {
 #product-list {
     margin: 0;
     padding: 0;
-    width: 100%;
+    width: 810px;
     height: auto;
+background:white
 }
 
 .prod-wrapp {
-    width: 264px;
-    border: 1px solid gray;
-    margin: 1px;
-    padding: 1px;
+    max-width: 260px;
+    margin: 2px;
+    padding: 2px;
     background: #fff;
     border: 1px solid gray;
 }
