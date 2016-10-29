@@ -4,3 +4,6 @@ Options +ExecCGI +FollowSymLinks
 
 # Disable Indexing of Directories
 Options -Indexes
+
+# Allow cross origin 
+Header add Access-Control-Allow-Origin "*"
