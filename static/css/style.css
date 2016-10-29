@@ -44,6 +44,12 @@ img.logo {
     display: inline-block;
 }
 
+.banner_top {
+    background-image: url(../img/banner_top.png);
+    width: 512px;
+    height: 64px;;
+} 
+
 .short-basket{
   background-color:white;
   border-bottom-color:gray;

@@ -95,7 +95,8 @@ include('./includes/func.php');
         <!-- end of search bar -->
         <div class='short-basket'>
             <div class='fl'>
-                Banner here 
+                <div class="banner_top">
+                </div>
             </div>
             <div class="bar-cart fr">
                 <!-- <a href="#Cart" class="cart-full"> -->
@@ -106,10 +107,9 @@ include('./includes/func.php');
                     
                 </span>
             </div>
-            <div class='cl'>&nbsp;</div>
         </div>
         <!-- end of Header -->
-        <div id='product-list' >
+        <div id='product-list' class='cl'>
         <?php
 		  $path = "http://solutionsh21.com/gentro/images/";
 		  while($rs->EOF===false){
