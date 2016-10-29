@@ -107,6 +107,7 @@ include('./includes/func.php');
                     
                 </span>
             </div>
+             <div class='cl'></div>
         </div>
         <!-- end of Header -->
         <div id='product-list' class='cl'>
@@ -118,22 +119,44 @@ include('./includes/func.php');
 		    $title =  utf8_encode($rs->fields['product_name']);
 		    $sdesc =  htmlspecialchars($rs->fields['product_s_desc']);
 		    $img   =  $path .  $rs->fields['product_full_image'];
-		    $price =  $rs->fields['price'];;
+		    $imgF   =  $path .'full/'.  $rs->fields['product_full_image'];
+		    $warranty =  $rs->fields['product_warranty'];
+		    $priceOrig =  $rs->fields['price'];
+		    $discount = $rs->fields['discount'];
+		    if($discount<1){
+				$price = $priceOrig - ($priceOrig  * $discount);
+			} else if($discount >=1 and $rs->fields['price'] > $discount){
+				$price =$rs->fields['price'] - $discount;
+			} else {
+				$price =$rs->fields['price'];
+		    }
 		?>
 	   <div class='prod-wrapp fl'>
             <div class='pImg cl'>
                 <a href="javascript: void(0);">
-                    <img class="pdp-pop" id='img<?=$sku?>' src="<?=$img ?>">
+                    <img class="pdp-pop" data-sku="<?=$sku?>" id='img<?=$sku?>' src="<?=$img ?>">
                 </a>
             </div>
             <div class='title cl'><strong>SKU:</strong><?=$rsku?></div>
             <div class='sDesc cl'><strong  id='product-<?=$sku?>'>  <?=$title ?></strong></div>
+           <div class='price-orig cl'>
+                <strike class='fl'><?=number_format($priceOrig,2,'.',',') ?></span>&nbsp;PHP </strike>
+                <p class='fr'><b>Warranty:</b><?=$warranty?></p>
+                <div class='cl'></div>
+            </div>
             <div class='price cl'>
                 <span class="value fl" id='price-<?=$sku?>'><?=number_format($price,2,'.',',') ?></span>&nbsp;PHP              
                 <a href="javascript:void(0)" onClick="javascript:addToCart('<?=$sku?>')" class="fr cart-add">Buy</a>
                 <input type="number" id='qty-<?=$sku?>' max="50" min="1" value="1" class="fr cart-qty"></input>
                 <span class=''>&nbsp;</span>
             </div>
+            <p id='dtl<?=$sku?>' data-price='<?=number_format($price,2,'.',',') ?>' 
+                         data-orig-price='<?=number_format($priceOrig,2,'.',',') ?>' 
+                         data-discount='<?=$discount<1 ? $discount * 100:$discount ?>' 
+                         data-warranty='<?=$warranty ?>' 
+                         data-img='<?=$imgF ?>' style='display:none'> <?=strip_tags($rs->fields['product_s_desc'])?> 
+            </p>
+            
             <!--
             <div class='action-btn cl'> 
                 <a href="javascript: share();">
@@ -147,7 +170,11 @@ include('./includes/func.php');
         </div> 
          <?php
 	     $rs->moveNext();
-    	  } ?>
+    	  } 
+    	  if($rs->recordCount()==0){
+			   echo "<center>No Record Found</center>";
+			  }
+		  ?>
         </div>
     </div>
     <script> getShortBasket(); </script>
@@ -157,8 +184,19 @@ include('./includes/func.php');
         <div class="modal">
             <div class="modal-header">
                 <a href="#" class="modal-close"><span class="icon-cancel-circle"></span></a>
-                <h4><strong>sku</strong>Product Title</h4>
+                <h4 id='skuTitle'><strong id=''>sku22</strong>Product Titlefffffffff fsfsd </h4>
             </div>
+            <div id="product-full">
+                   <div class='fpImg'> <img id='fimg' width='400' src="">   </div>
+                   <div class='prod-sdtl'> 
+                    
+                      <div class='prod-short-dtl'></div>
+					  
+					  <div class='prod-desc'> </div>  
+				   </div>
+                  
+                   <div class='cl'> </div> 
+                </div>
         </div>
     </div>
     <!-- end of PDP -->

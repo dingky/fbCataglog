@@ -273,12 +273,26 @@ img.logo {
 }
 
 .price {
-    color: #167310;
+    color:#167310;
     width: 254px;
     padding: 5px;
     border-bottom: 1px dotted lightgray;
     border-width: 1px;
     min-height: 30px;
+}
+
+.price-orig p{
+   padding:0;
+   margin:0;
+   color:black;   
+}
+.price-orig {
+    color:red;
+    width: 254px;
+    padding: 5px;
+    border-bottom: 1px dotted lightgray;
+    border-width: 1px;
+    font-size:13px;
 }
 
 .price .cart-add {
@@ -394,8 +408,21 @@ img.logo {
  background-color:white;
 }
 
-#shipaddress {text-align:left}
+#shipaddress select,textarea{
+  min-width:205px;
+}
+#shipaddress input{
+  min-width:188px
+}
+#shipaddress {
+  text-align:left;
+  border-top:1px dotted gray;
+ }
 #shipaddress table{margin:0}
+#shipaddress textarea{
+ width:165px; 
+ height: 109px;
+}
 #product-list h3 {
   margin-top:10px;
   font-weight:bold;
@@ -406,7 +433,9 @@ img.logo {
 }
 
 #payment{
-  padding:5px
+  padding:5px;
+  font-size:12px;
+  border-top:1px dotted gray;
 }
 #payment ul{
   list-style:none;
@@ -418,3 +447,25 @@ img.logo {
    font-size:11px;
    padding-left: 5px;
 }
+
+#product-full .fpImg img{ margin:0 auto}
+#product-full .fpImg {
+ width:455px;
+ border-right:1px dotted gray;
+ float:left;
+}
+#product-full .prod-sdtl{
+ width:320px;
+ border:0;
+ float:left;
+ padding-left:5px
+}
+#product-full .prod-desc{
+ clear:both;
+ width:100%;
+ border-top:1px dotted gray;
+ padding-top:5px
+}
+
+.addressPane{width:300px}
+.paymentPane{width:500px}

@@ -58,17 +58,32 @@ if($basket){
 	//unset($_REQUEST);
 	//unset($_SESSION);
 } else {
-	 die("Something Went Wrong error:502");
+	 //die("Something Went Wrong error:502");
 }
 
 
 ?>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.cookie.js"></script>
+    <title>Gentronics</Title>
+    <!-- START: CSS -->
+    <link rel="stylesheet" href="static/css/style.css" type="text/css">
     <script>
       $.cookie('basket', null);
       $.cookie('shipping', null);
       $.cookie('total', null);
     </script>
-Thank for your Order<br>
-Your Order id: <?=$rsO->fields['lastId']?>
+<body>
+     <div class="wrapper">
+        <div class="bar-search-combo">
+            <div class="bar-search-box" style="font-size:20px;color:white!important">
+				<center> 
+               Thank for your Order!<br>
+               Your Order id: <strong><?=$rsO->fields['lastId']?> </strong><br>
+                <a  href="gentro.php"> View cataglog </a>
+                <center> 
+            </div>
+        </div>
+    </div>
+</body>
+

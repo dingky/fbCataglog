@@ -75,125 +75,131 @@ $curRate=$rsCity->fields['rate'];
     <div class="wrapper">
 	<form method="post"  id="form1" action="confirm.php">
     <!-- Header -->
-        <div class="bar-header">
-            <div>
-               <a href="gentro.php"> <img class="logo" src="static/img/gentronics.png"></img> </a>
-            </div>
-        </div>
+       
         
         <div id='product-list'>
 	      <h3 style='withd:100%;text-align:center'>Your Basket </h3>		
           <div id='basketList' ></div> 
           <div class='ckBox'></div>         
-          <h3>Shipping Addres </h3>		
-          <div id='shipaddress' class='fl ckBox'>
-			  
-             <table cellpadding='5' cellspacing='1'> 
-				 <tr>
-				   <th>Fist name</th>
-				   <td> <input name='txtfname' id='fname'  type='text' value='' required title="Please Enter you First Name"   minlength="2"></td>
-				 </tr>
-				 <tr>
-				   <th>Last name</th>
-				   <td> <input name='txtlname'   type='text' value='' required title="Please Enter you last Name"   minlength="2"></td>
-				 </tr>
-				 <tr>
-				   <th>Middle name</th>
-				   <td><input name='txtfname' type='text' value=''> </td>
-				 </tr>
-				 <tr>
-				   <th>Middle name</th>
-				   <td>
-				      <select name='selGender' id='selGender' required title="Please Select Your Gender " aria-required=true> 
-						     <option   value='male'>Male</option>
- 					         <option <  value='female'>Female</option>
-				        </select>
-				   </td>
-				 </tr>
-				 <tr>
-				   <th>Email</th>
-				   <td><input name='txtemail' type='text' value='' required title="Please Enter a valid email address"   email="true"> </td>
-				 </tr>
-				  <tr>
-				   <th>Cellphone #:</th>
-				   <td><input name='txtnumber' type='text' value='' maxlength='11' required title="Please Enter a valid cellphone" number=true  minlength="11"> </td>
-				 </tr>
-				 <tr>
-				   <th>Address</th>
-				   <td> <textarea name='txtaddress' required title="Please Enter your address"   minlength="2"></textarea></td>
-				 </tr>
-				 <tr>
-				   <th>province</th>
-				   <td> <select name='selPro' id='selPro' required title="Please Select Delivery Province " aria-required=true> 
-					      
-					       <?php
-					         while(!$rsPro->EOF){
-								 $selected = strtolower($rsPro->fields['province'])== strtolower($selectedPro) ? "selected='true'":"";
-						   ?>
-						     <option <?=$selected?> value='<?=$rsPro->fields['province']?>'><?=$rsPro->fields['province']?></option>
-						   <?php
-							  $rsPro->moveNext(); 	 
-							 }
-					       ?>
-				        </select>
-				   </td>
-				 </tr>
-				 <tr>
-				   <th>City</th>
-				   <td>
-				       <select  id='selCity' name='selCity' required title="Please Select Delivery City" aria-required=true > 
-					       <?php
-					       
-					         while(!$rsCity->EOF){
-						   ?>
-						     <option value='<?=utf8_encode($rsCity->fields['city'])?>' alt='<?=$rsCity->fields['rate']?>' ><?=utf8_encode($rsCity->fields['city']) . " : " . $rsCity->fields['rate'] ?></option>
-						   <?php
-							  $rsCity->moveNext(); 	 
-							 }
-					       ?>
-				        </select>
-				   </td>
-				 </tr>
-				 <tr>
-				   <th>Zip Code</th>
-				   <td> <input  required minlength='4' number="true" maxlength='4' name='txtzip' type='text' value='' title="Please Enter a valid ZipCode"></td>
-				 </tr>
-				 </table>
-				 <div class='error_pane' style="display: none;"></div>
-				  <div class="cl"></div>
-            </div>
-          <div class='ckBox'></div>
-          <h3>Payment Info</h3>		
-          <div id='payment' class='ckBox' > 
-            <p>We only accept Bank Deposits right now as we are still establishing our payment methods and payment gateways parnter with Paypal</p>
-		    <ul>
-				<li> Account Name: Reiniel Ronquillo </li>
-			    <li> BDO Bank: 000 44057 1421</li>
-                <li></li>
-			   <li>Account Name: Dingky Duo Amurao </li>
-			   <li>Security Bank: 0000006336989 </li>
-            </ul>
-			<p><i>* For Customer Confidence and protection in Shopping we will not accept pera padala / money remittances as these mode of payments are untraceable once there is a potential Scam. Please Pay us Through Bank Deposit Only</i></p>
+       
+          <div  class='ckBox'>
+				 <div  class='fl addressPane'>
+				  <!--Address Dtls -->
+				   <h3>Shipping Addres </h3>
+			       <div id='shipaddress'>
+					  <table cellpadding='5' cellspacing='1'> 
+					 <tr>
+					   <th>Fist name</th>
+					   <td> <input name='txtfname' id='fname'  type='text' value='' required title="Please Enter you First Name"   minlength="2"></td>
+					 </tr>
+					 <tr>
+					   <th>Last name</th>
+					   <td> <input name='txtlname'   type='text' value='' required title="Please Enter you last Name"   minlength="2"></td>
+					 </tr>
+					 <tr>
+					   <th>Middle name</th>
+					   <td><input name='txtfname' type='text' value=''> </td>
+					 </tr>
+					 <tr>
+					   <th>Middle name</th>
+					   <td>
+						  <select name='selGender' id='selGender' required title="Please Select Your Gender " aria-required=true> 
+								 <option   value='male'>Male</option>
+								 <option <  value='female'>Female</option>
+							</select>
+					   </td>
+					 </tr>
+					 <tr>
+					   <th>Email</th>
+					   <td><input name='txtemail' type='text' value='' required title="Please Enter a valid email address"   email="true"> </td>
+					 </tr>
+					  <tr>
+					   <th>Cellphone #:</th>
+					   <td><input name='txtnumber' type='text' value='' maxlength='11' required title="Please Enter a valid cellphone" number=true  minlength="11"> </td>
+					 </tr>
+					 <tr>
+					   <th>Address</th>
+					   <td> <textarea name='txtaddress' required title="Please Enter your address"   minlength="2"></textarea></td>
+					 </tr>
+					 <tr>
+					   <th>province</th>
+					   <td> <select name='selPro' id='selPro' required title="Please Select Delivery Province " aria-required=true> 
+							  
+							   <?php
+								 while(!$rsPro->EOF){
+									 $selected = strtolower($rsPro->fields['province'])== strtolower($selectedPro) ? "selected='true'":"";
+							   ?>
+								 <option <?=$selected?> value='<?=$rsPro->fields['province']?>'><?=$rsPro->fields['province']?></option>
+							   <?php
+								  $rsPro->moveNext(); 	 
+								 }
+							   ?>
+							</select>
+					   </td>
+					 </tr>
+					 <tr>
+					   <th>City</th>
+					   <td>
+						   <select  id='selCity' name='selCity' required title="Please Select Delivery City" aria-required=true > 
+							   <?php
+							   
+								 while(!$rsCity->EOF){
+							   ?>
+								 <option value='<?=utf8_encode($rsCity->fields['city'])?>' alt='<?=$rsCity->fields['rate']?>' ><?=utf8_encode($rsCity->fields['city']) . " : " . $rsCity->fields['rate'] ?></option>
+							   <?php
+								  $rsCity->moveNext(); 	 
+								 }
+							   ?>
+							</select>
+					   </td>
+					 </tr>
+					 <tr>
+					   <th>Zip Code</th>
+					   <td> <input  required minlength='4' number="true" maxlength='4' name='txtzip' type='text' value='' title="Please Enter a valid ZipCode"></td>
+					 </tr>
+					 </table>       		
+			       </div>		
+				 
+				 </div>
+				 <div   class='fr paymentPane'>
+					<!--payment Dtls --> 
+				   <h3>Payment Info</h3>		
+					  <div id='payment'> 
+						<p>We only accept Bank Deposits right now as we are still establishing our payment methods and payment gateways parnter with Paypal</p>
+						<ul>
+							<li> Account Name: Reiniel Ronquillo </li>
+							<li> BDO Bank: 000 44057 1421</li>
+							<li></li>
+						   <li>Account Name: Dingky Duo Amurao </li>
+						   <li>Security Bank: 0000006336989 </li>
+						</ul>
+						<p><i>* For Customer Confidence and protection in Shopping we will not accept pera padala / money remittances as these mode of payments are untraceable once there is a potential Scam. Please Pay us Through Bank Deposit Only</i></p>
 
-			<h4>Return policy:</h4>
-            <ol>
-			    <li>Package must be complete</li>
-			    <li>Tags and Labels must be attached</li>
-			    <li>Product must be Defective and not damaged due to carelessness.</li>
-			    <li>Return/Exchange policy and Warranty is up to 2 weeks for Generic Products and 60 days for Branded products after delivery date. Please keep the couriers slip for reference</li>
-			    <li>Quality evaluation and qualification for Return/Exchange will be for 48 hours.</li>
-			    <li>if Found Defective within 90 days, customer must shoulder the return shipping fee and we will replace your item for a brand new one.</li>
-            </ol>
-            <i> I Agree to Term and Consition <input name='chkagree' id='agree' title="Please accept out Policy" type='checkbox'  required></i> <input   value='Confirm Order' type='submit'>
-          </div>
-          <div class='ckBox'></div>
-          
-           
-           
+						<h4>Return policy:</h4>
+						<ol>
+							<li>Package must be complete</li>
+							<li>Tags and Labels must be attached</li>
+							<li>Product must be Defective and not damaged due to carelessness.</li>
+							<li>Return/Exchange policy and Warranty is up to 2 weeks for Generic Products and 60 days for Branded products after delivery date. Please keep the couriers slip for reference</li>
+							<li>Quality evaluation and qualification for Return/Exchange will be for 48 hours.</li>
+							<li>if Found Defective within 90 days, customer must shoulder the return shipping fee and we will replace your item for a brand new one.</li>
+						</ol>
+						  <div class='price cl' style="width:100%!important">
+						    <input  style="width:180px!important;background:red!important;font-weight:bold;font-size:16px;margin:5px;padding:5px"  value='Confirm Order' class="cart-qty" type='submit'>
+						   <input name='chkagree' id='agree' title="Please accept out Policy" type='checkbox'  required>
+						   <i> I Agree to Term and Consition </i>
+						  
+					     </div>
+					  </div>
+							 </div>
+				 <div class='error_pane' style="display: none;"></div>
+				 <div class="cl"></div>
+            </div>
         </div>
         </form>
        
     </div>
+    <br></br>
    <script type="text/javascript" src="static/js/jquery.cookie.js"></script>
     <script type="text/javascript" src="static/js/jquery.validate.min.js"></script>
     <script src='static/js/jAlert.js'></script>
