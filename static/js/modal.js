@@ -15,7 +15,7 @@ $(document).ready(function() {
 			dtl +="<p><b>WARRANTY</b>:"+warranty+"</p>";
 			dtl +="<div class='price cl' style='width:100%!important'>"
 			dtl +="<a href='javascript:void(0)' onClick="+'"' + "javascript:addToCart('"+sku+"')"  +  '"' + " class='fr cart-add'>Buy</a>"
-            dtl +='<input type="number" id="qty-'+sku+'" max="50" min="1" value="1" class="fr cart-qty"></input>';
+           // dtl +='<input type="number"   max="50" min="1" value="1" class="fr cart-qty"></input>';
             dtl +='</div>';
         $('.prod-short-dtl').html(dtl);
         $('#product-full .prod-desc').html(desc);

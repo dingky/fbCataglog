@@ -146,7 +146,7 @@ include('./includes/func.php');
             </div>
             <div class='price cl'>
                 <span class="value fl" id='price-<?=$sku?>'><?=number_format($price,2,'.',',') ?></span>&nbsp;PHP              
-                <a href="javascript:void(0)" onClick="javascript:addToCart('<?=$sku?>')" class="fr cart-add">Buy</a>
+                <a href="javascript:void(0)" id="<?=$sku?>" onClick="javascript:addToCart('<?=$sku?>')" class="fr cart-add">Buy</a>
                 <input type="number" id='qty-<?=$sku?>' max="50" min="1" value="1" class="fr cart-qty"></input>
                 <span class=''>&nbsp;</span>
             </div>

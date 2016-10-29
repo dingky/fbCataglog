@@ -78,7 +78,7 @@ $curRate=$rsCity->fields['rate'];
        
         
         <div id='product-list'>
-	      <h3 style='withd:100%;text-align:center'>Your Basket </h3>		
+	      <h3 style='withd:100%;text-align:center'>Your Basket (<a href="gentro.php">View Shop</a>) </h3>		
           <div id='basketList' ></div> 
           <div class='ckBox'></div>         
        
@@ -237,7 +237,7 @@ $curRate=$rsCity->fields['rate'];
          tblBasket += "<tr>";
          tblBasket += "<td bgcolor='white'>"+sku+"</td>";
          tblBasket += "<td bgcolor='white'>"+product+"</td>";
-         tblBasket += "<td bgcolor='white'><input class='qtyBox' alt='"+prop+"' name='qty-"+sku+"' value='"+qty+"' type='number' min='1' max='50'> <a href='javascript:remove("+prop+")'  >Remove </a></td>";
+         tblBasket += "<td bgcolor='white'><input class='qtyBox' onChange='updateQty("+prop+",this.value)' alt='"+prop+"' name='qty-"+sku+"' value='"+qty+"' type='number' min='1' max='50'> <a href='javascript:remove("+prop+")'  >Remove </a></td>";
          tblBasket += "<td bgcolor='white' align='right'>"+price.toFixed(2)+"</td>";
          tblBasket += "<td bgcolor='white' align='right'>"+amt.toFixed(2)+"</td>";
          tblBasket += "</tr>";
@@ -265,19 +265,29 @@ $curRate=$rsCity->fields['rate'];
       $("#basketList").html("Your basket is Empty <a href='gentro.php'>Continue Shopping</a>");
    }
    
+   
    function remove(i){
 	  var basket = JSON.parse($.cookie("basket"));
 	  basket.splice(i, 1);
 	  $.cookie("basket",JSON.stringify(basket));
 	  window.location.href =  window.location.href;
 	  }
-	  
+	
+	
+	function updateQty(i,val){
+	  var basket = JSON.parse($.cookie("basket"));
+      var itm = basket[i];
+      itm.qty = val;
+      basket[i]  = itm;
+	  $.cookie("basket",JSON.stringify(basket));
+       window.location.href =  window.location.href;
+	}  
+	
+	
 	function update(i){
 	  var basket = JSON.parse($.cookie("basket"));
 	  basket[i].qty=$(".qtyBox").eq(i).val();
-	  console.log($(".qtyBox").eq(i).val());
 	  $.cookie("basket",JSON.stringify(basket));	
-	  console.log(JSON.stringify(basket));
 	}  
 	
 	$(".qtyBox").click(function(i){
@@ -285,15 +295,13 @@ $curRate=$rsCity->fields['rate'];
 	 });
 	 
 	$('#selCity').change(function(){
-		 
-		 
 		var shipping = parseFloat($('#selCity option:selected').attr('alt'));
 		var total = parseFloat($('#totalPane').html());
 		total = parseFloat(total) + parseFloat(shipping);
 		$('#totalPane').html(total.toFixed(2));
 		$('#shipmentPane').html(shipping.toFixed(2));
-		 $.cookie("total",total.toFixed(2)); 
-       $.cookie("shipping",shipping.toFixed(2));
+		$.cookie("total",total.toFixed(2)); 
+        $.cookie("shipping",shipping.toFixed(2));
 		
 	});
 	$('#selPro').change(function(){

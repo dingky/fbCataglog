@@ -8,6 +8,7 @@ function msgUs(sku) {
     });
 }
   
+ 
 function addToCart(sku) {
     if ($.cookie("basket") && $.cookie("basket") != '' && 'null' != $.cookie("basket")) {
         var itm = JSON.parse($.cookie("basket"));
@@ -16,7 +17,7 @@ function addToCart(sku) {
     }
         
     var qty = $("#qty-"+sku).val();
-    var price = $("#price-"+sku).text();
+    var price = $("#price-"+sku).text().replace(',','');
     var product = $.trim($("#product-"+sku).text());
 
     itm.push({"sku": sku, "qty": qty, "price": price, "product": product});
