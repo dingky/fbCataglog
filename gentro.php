@@ -204,5 +204,6 @@ include('./includes/func.php');
     <script type="text/javascript" src="static/js/search.js"></script>
     <script type="text/javascript" src="static/js/modal.js"></script>
     <script type="text/javascript" src="static/js/cart.js"></script>
+    <script type="text/javascript" src="static/js/visitors.js"></script>
     <!-- end of scripts -->
 </body>
