@@ -306,7 +306,7 @@ $curRate=$rsCity->fields['rate'];
 	});
 	$('#selPro').change(function(){
 		   $.ajax({
-			      url:  'ajax.php?pro='+$(this).val(),
+			      url:  'ajax.php?get-province&pro='+$(this).val(),
 			      method:'get',
 			      dataType:'json' 
 			}).done(function( data ) {
