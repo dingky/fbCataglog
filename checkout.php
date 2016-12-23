@@ -9,7 +9,7 @@ foreach($_POST as $k=>$v){
 
 $sqlProvince = "select distinct province from provinces order by province asc";
 $selectedPro = isset($post['selPro']) ?$post['selPro']:"metro manila";
-$sqlCity = "select id,city,rate from provinces where province='".mysql_real_escape_string($selectedPro)."' order by city asc";
+$sqlCity = "select id,city,rate from provinces where province='". addslashes($selectedPro)."' order by city asc";
 
 $rsPro = $conn->Execute($sqlProvince); 
 $rsCity= $conn->Execute($sqlCity);
@@ -78,11 +78,11 @@ $curRate=$rsCity->fields['rate'];
        
         
         <div id='product-list'>
-	      <h3 style='withd:100%;text-align:center'>Your Basket (<a href="gentro.php">View Shop</a>) </h3>		
+	      <h3 style='withd:100%;text-align:center'>Your Basket (<a href="index.php">View Shop</a>) </h3>		
           <div id='basketList' ></div> 
           <div class='ckBox'></div>         
        
-          <div  class='ckBox'>
+          <div  class='ckBox' id='chkPane'>
 				 <div  class='fl addressPane'>
 				  <!--Address Dtls -->
 				   <h3>Shipping Addres </h3>
@@ -181,7 +181,7 @@ $curRate=$rsCity->fields['rate'];
 							<li>Tags and Labels must be attached</li>
 							<li>Product must be Defective and not damaged due to carelessness.</li>
 							<li>Return/Exchange policy and Warranty is up to 2 weeks for Generic Products and 60 days for Branded products after delivery date. Please keep the couriers slip for reference</li>
-							<li>Quality evaluation and qualification for Return/Exchange will be for 48 hours.</li>
+							<li>Quality evaluation and qualification for Return/Exchange will be for 48 hours.</li>chkPane
 							<li>if Found Defective within 90 days, customer must shoulder the return shipping fee and we will replace your item for a brand new one.</li>
 						</ol>
 						  <div class='price cl' style="width:100%!important">
@@ -262,7 +262,8 @@ $curRate=$rsCity->fields['rate'];
        $("#basketList").html(tblBasket);
 
    } else {
-      $("#basketList").html("Your basket is Empty <a href='gentro.php'>Continue Shopping</a>");
+      $("#chkPane").css('display','none');
+      $("#basketList").html("Your basket is Empty <a href=index.php'>Continue Shopping</a>");
    }
    
    

@@ -1,0 +1,8 @@
+[21-Dec-2016 23:50:41 America/Chicago] PHP Parse error:  syntax error, unexpected '$message' (T_VARIABLE) in /home2/gentroni/public_html/confirm.php on line 47
+[23-Dec-2016 09:57:43 asia/manila] PHP Deprecated:  mysql_real_escape_string(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home2/gentroni/public_html/includes/func.php on line 14
+[23-Dec-2016 09:57:43 asia/manila] PHP Warning:  mysql_real_escape_string(): Access denied for user 'gentroni'@'localhost' (using password: NO) in /home2/gentroni/public_html/includes/func.php on line 14
+[23-Dec-2016 09:57:43 asia/manila] PHP Warning:  mysql_real_escape_string(): A link to the server could not be established in /home2/gentroni/public_html/includes/func.php on line 14
+[23-Dec-2016 09:57:43 asia/manila] PHP Deprecated:  mysql_real_escape_string(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home2/gentroni/public_html/includes/func.php on line 29
+[23-Dec-2016 09:57:43 asia/manila] PHP Warning:  mysql_real_escape_string(): Access denied for user 'gentroni'@'localhost' (using password: NO) in /home2/gentroni/public_html/includes/func.php on line 29
+[23-Dec-2016 09:57:43 asia/manila] PHP Warning:  mysql_real_escape_string(): A link to the server could not be established in /home2/gentroni/public_html/includes/func.php on line 29
+[23-Dec-2016 09:57:43 asia/manila] PHP Fatal error:  Call to a member function recordCount() on boolean in /home2/gentroni/public_html/index.php on line 174

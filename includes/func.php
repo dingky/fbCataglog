@@ -7,15 +7,15 @@ $txtSearch = "";
 $filter="";
 if(isset($_POST['cat']) and isset($_POST['sort'])){
 	if(!empty($_POST['txtSearch'])) {
-		$txtSearch = mysql_real_escape_string($_POST['txtSearch']);
+		$txtSearch = addslashes($_POST['txtSearch']);
 		$filter .= " and (p.product_sku like '%$txtSearch%' or p.product_name like '%$txtSearch%' )";
 	}
 	if(!empty($_POST['cat'])) {
-	   $cid     = $sid = mysql_real_escape_string($_POST['cat']);
+	   $cid     = $sid = addslashes($_POST['cat']);
 	   $filter  .= " and pref.category_id =$cid";
     }
     if(!empty($_POST['sort'])) {
-		$sSort = mysql_real_escape_string($_POST['sort']);
+		$sSort =addslashes($_POST['sort']);
 		if($_POST[sort]=='nameAsc'){
 			$orderBy = " p.product_name asc";
 		}else if($_POST[sort]=='nameDesc'){
@@ -26,7 +26,7 @@ if(isset($_POST['cat']) and isset($_POST['sort'])){
 			$orderBy = " p.price asc";
 		}
     }
-    $spage    = $_POST['selpage']=='' ? 9: mysql_real_escape_string($_POST['selpage']);
+    $spage    = $_POST['selpage']=='' ? 9: addslashes($_POST['selpage']);
 } 
 $strSQL="select p.*,pref.category_id from jos_vm_product  as p left join jos_vm_product_category_xref as pref 
          on p.product_id = pref.product_id
