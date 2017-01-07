@@ -1,30 +1,38 @@
 <?php
 
+/**
+ * Gentronics Facebook Tab Page
+ * 
+ * @package     fbCatalog
+ * @version     1.0
+ *
+ */
+
+/** Start-of-Inclusions **/
 include('./includes/conn.php');
 include('./includes/func.php');
+/** End-of-Inclusions **/
 
 ?>
 
 <!DOCTYPE html>
-
 <head>
-    <title>Gentronics</Title>
+    <title>Gentronics</title>
+
     <link rel="ico" href="static/img/gentronics.ico" type="image/x-icon">
     <link rel="shortcut icon" href="static/img/gentronics.ico" type="image/x-icon">
 
-    <!-- START: CSS -->
     <link rel="stylesheet" href="static/css/style.css" type="text/css">
     <link rel='stylesheet' href='static/css/jAlert.css'>
     <link rel="stylesheet" href="static/css/modal.css" type="text/css">
     <link rel="stylesheet" href="static/css/icomoon.css" type="text/css">
-    <!-- END: CSS -->
 
-    <!-- START: JS -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.cookie.js"></script>
     <script type="text/javascript" src="static/js/search.js"></script>
     <script src='static/js/jAlert.js'></script>
     <script src='static/js/jAlert-functions.js'></script>
+    
     <script type="text/javascript">
         (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -33,7 +41,6 @@ include('./includes/func.php');
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-    
     
         window.fbAsyncInit = function() {
             FB.init({
@@ -47,13 +54,12 @@ include('./includes/func.php');
                 // console.log(response.status);
                 if (!response.status === 'connected') {
                     //FB.login(function(){}, {scope: 'publish_actions'});
-                // console.log('login redirect');
+                    // console.log('login redirect');
                 }
                 }); 
             };
     </script>
     <script type="text/javascript" src="static/js/internal.js"></script>
-    <!-- END: JS -->
 </head>
 
 <body>
@@ -62,34 +68,32 @@ include('./includes/func.php');
         <!-- Search bar -->
         <div class="bar-search-combo">
             <div class="bar-search-box">
-				<form id='search' method="POST">
-                <input placeholder="Search for products" name='txtSearch' value="<?=$txtSearch?>" class="bar-search-text-box" type="text" value=""></input>
-                <!-- add hidden class="bar-search-filter hidden"-->
-                <select  onchange="$('#search').submit()"  name='cat' id="filter-category" class="bar-search-filter">
-					 <option value=''> Category </option>
-					 <?php 
-					  echo getCategory(0,$conn,$sid);
-					 ?>
-                </select>
-                
-                <select name='sort'  id="sort-by" onchange="$('#search').submit()"  class="bar-search-filter">
-                    <option value=''>Sort By</option>
-                    <option <?php echo $sSort=='nameAsc' ? "selected":""?> value='nameAsc'> Name Asc A-Z</option>
-                    <option <?php echo $sSort=='nameDesc' ? "selected":""?> value='nameDesc'> Name Desc Z-A</option>
-                    <option <?php echo $sSort=='lowprice' ? "selected":""?> value='lowprice'>Lowest to Highest Price</option>
-                    <option <?php echo $sSort=='highprice' ? "selected":""?> value='highprice'>Highest to Lowest Price</option>
-                </select>
-                <select style='width:120px!important' name='selpage' onchange="$('#search').submit()" id="selpage" class="bar-search-filter">
-                     <?php
-                       $totolRecord = $rsTotal->fields['rec'];
-                      for($i=9;$i<=$totolRecord ;$i+=9){
-						   $ii = floor($i/9);
-						   $s = $spage ==$i ? "selected":"";
-						   echo " <option $s value='$i'> Page {$ii} </option>";
-						  }
-                     ?>
-                </select>
-               
+                <form id='search' method="POST">
+                    <input placeholder="Search for products" name='txtSearch' value="<?=$txtSearch?>" class="bar-search-text-box" type="text" value=""></input>
+                    <!-- add hidden class="bar-search-filter hidden"-->
+                    <select  onchange="$('#search').submit()"  name='cat' id="filter-category" class="bar-search-filter">
+                        <option value=''> Category </option>
+                        <?= getCategory(0,$conn,$sid); ?>
+                    </select>
+                    
+                    <select name='sort'  id="sort-by" onchange="$('#search').submit()"  class="bar-search-filter">
+                        <option value=''>Sort By</option>
+                        <option <?php echo $sSort=='nameAsc' ? "selected":""?> value='nameAsc'> Name Asc A-Z</option>
+                        <option <?php echo $sSort=='nameDesc' ? "selected":""?> value='nameDesc'> Name Desc Z-A</option>
+                        <option <?php echo $sSort=='lowprice' ? "selected":""?> value='lowprice'>Lowest to Highest Price</option>
+                        <option <?php echo $sSort=='highprice' ? "selected":""?> value='highprice'>Highest to Lowest Price</option>
+                    </select>
+                    
+                    <select style='width:120px!important' name='selpage' onchange="$('#search').submit()" id="selpage" class="bar-search-filter">
+                        <?php
+                        $totolRecord = $rsTotal->fields['rec'];
+                        for($i=9;$i<=$totolRecord ;$i+=9){
+                            $ii = floor($i/9);
+                            $s = $spage ==$i ? "selected":"";
+                            echo " <option $s value='$i'> Page {$ii} </option>";
+                            }
+                        ?>
+                    </select>
                 </form>
             </div>
             <div class="dropdown-content">
@@ -115,26 +119,26 @@ include('./includes/func.php');
         <!-- end of Header -->
         <div id='product-list' class='cl'>
         <?php
-		  $path = "images/";
-		  while($rs->EOF===false){
-		    $sku   =  str_replace('.','',$rs->fields['product_sku']);
-		    $rsku  =  $rs->fields['product_sku'];
-		    $title =  utf8_encode($rs->fields['product_name']);
-		    $sdesc =  htmlspecialchars($rs->fields['product_s_desc']);
-		    $img   =  $path .  $rs->fields['product_full_image'];
-		    $imgF   =  $path .'full/'.  $rs->fields['product_full_image'];
-		    $warranty =  $rs->fields['product_warranty'];
-		    $priceOrig =  $rs->fields['price'];
-		    $discount = $rs->fields['discount'];
-		    if($discount<1){
-				$price = $priceOrig - ($priceOrig  * $discount);
-			} else if($discount >=1 and $rs->fields['price'] > $discount){
-				$price =$rs->fields['price'] - $discount;
-			} else {
-				$price =$rs->fields['price'];
-		    }
-		?>
-	   <div class='prod-wrapp fl'>
+          $path = "images/";
+          while($rs->EOF===false){
+            $sku   =  str_replace('.','',$rs->fields['product_sku']);
+            $rsku  =  $rs->fields['product_sku'];
+            $title =  utf8_encode($rs->fields['product_name']);
+            $sdesc =  htmlspecialchars($rs->fields['product_s_desc']);
+            $img   =  $path .  $rs->fields['product_full_image'];
+            $imgF   =  $path .'full/'.  $rs->fields['product_full_image'];
+            $warranty =  $rs->fields['product_warranty'];
+            $priceOrig =  $rs->fields['price'];
+            $discount = $rs->fields['discount'];
+            if($discount<1){
+                $price = $priceOrig - ($priceOrig  * $discount);
+            } else if($discount >=1 and $rs->fields['price'] > $discount){
+                $price =$rs->fields['price'] - $discount;
+            } else {
+                $price =$rs->fields['price'];
+            }
+        ?>
+       <div class='prod-wrapp fl'>
             <div class='pImg cl'>
                 <a href="javascript: void(0);">
                     <img class="pdp-pop" data-sku="<?=$sku?>" alt="<?=$title ?>" id='img<?=$sku?>' src="<?=$img ?>">
@@ -171,13 +175,19 @@ include('./includes/func.php');
             </div>
             -->
         </div> 
-         <?php
-	     $rs->moveNext();
-    	  } 
-    	  if($rs->recordCount()==0){
-			   echo "<center>No Record Found</center>";
-			  }
-		  ?>
+        <?php
+            $rs->moveNext();
+        }
+
+            if($rs->recordCount()==0){
+        ?>
+            <div class="noresults">
+                <span class="oops">Oops!</span>
+                <span class="message">Sorry we can't find the product you're looking for.</span>
+            </div>
+        <?php
+            }
+        ?>
         </div>
     </div>
     <script> getShortBasket(); </script>
@@ -194,9 +204,9 @@ include('./includes/func.php');
                    <div class='prod-sdtl'> 
                     
                       <div class='prod-short-dtl'></div>
-					  
-					  <div class='prod-desc'> </div>  
-				   </div>
+                      
+                      <div class='prod-desc'> </div>  
+                   </div>
                   
                    <div class='cl'> </div> 
                 </div>
