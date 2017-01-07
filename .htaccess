@@ -1,10 +1,1 @@
-# Enable running of scripts
-AddHandler cgi-script .pl .cgi
-Options +ExecCGI +FollowSymLinks
-# Disable Indexing of Directorie
-
-# Allow cross origin 
-Header add Access-Control-Allow-Origin "*"
-
-#Options -Indexes
 
