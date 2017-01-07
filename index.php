@@ -27,6 +27,23 @@ include('./includes/func.php');
     <link rel="stylesheet" href="static/css/modal.css" type="text/css">
     <link rel="stylesheet" href="static/css/icomoon.css" type="text/css">
 
+    <!-- ** Open Graph ** -->
+    <!-- Preview -->
+    <meta property="og:title" content="Gentronics M2C" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://gentronics-m2c.com" />
+    <meta property="og:description" content="Philippine-Based online Electronic Store that offers guaranteed authentic Products from Taiwan" />
+    <meta property="og:image" content="http://gentronics-m2c.com/static/img/gentronics.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="662" />
+    <meta property="og:image:height" content="174" />
+    <!-- ** Twitter Card ** -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Gentronics M2C">
+    <meta name="twitter:description" content="Philippine-Based online Electronic Store that offers guaranteed authentic Products from Taiwan">
+    <meta name="twitter:image" content="http://gentronics-m2c.com/static/img/gentronics.png">
+    <meta name="twitter:url" content="http://gentronics-m2c.com">
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.cookie.js"></script>
     <script type="text/javascript" src="static/js/search.js"></script>
