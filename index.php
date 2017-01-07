@@ -9,6 +9,9 @@ include('./includes/func.php');
 
 <head>
     <title>Gentronics</Title>
+    <link rel="ico" href="static/img/gentronics.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static/img/gentronics.ico" type="image/x-icon">
+
     <!-- START: CSS -->
     <link rel="stylesheet" href="static/css/style.css" type="text/css">
     <link rel='stylesheet' href='static/css/jAlert.css'>
