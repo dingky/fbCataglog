@@ -110,7 +110,7 @@ include('./includes/func.php');
                 <span class='basket-dtl'>
                     <span class="icon-cart"></span>
                     <span id="cart-info"> <!--short basket dtls here --></span>
-                    <span class="icon-cart2" style="cursor:pointer">View basket</span>
+                    <span class="view-basket icon-cart2" style="cursor:pointer">View basket</span>
                     
                 </span>
             </div>
@@ -148,7 +148,7 @@ include('./includes/func.php');
             <div class='sDesc cl'><strong  id='product-<?=$sku?>'>  <?=$title ?></strong></div>
            <div class='price-orig cl'>
                 <strike class='fl'><?=number_format($priceOrig,2,'.',',') ?></span>&nbsp;PHP </strike>
-                <p class='fr'><b>Warranty:</b><?=$warranty?></p>
+                <p class='fr'><b>Warranty:</b>&nbsp;<?=$warranty?></p>
                 <div class='cl'></div>
             </div>
             <div class='price cl'>
