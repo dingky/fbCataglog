@@ -37,6 +37,7 @@ include('./includes/func.php');
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="300" />
     <meta property="og:image:height" content="300" />
+    <meta property="fb:app_id" content="1074711305977720"/>
     <!-- ** Twitter Card ** -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Gentronics | High Quality Electronics and Gadget Supplies">
